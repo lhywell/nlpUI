@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>单文本演示 - mininglampNLP</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./mininglampNLP/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="./mininglampNLP/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./mininglampNLP/global.css?t=201707041851">
+    <link rel="stylesheet" type="text/css" href="./mininglampNLP/toggle-switch.min.css">
+    <link rel="stylesheet" type="text/css" href="./mininglampNLP/demo.css?t=201707041851">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="http://static.bosonnlp.com/vendor/es5-shim/es5-shim.min.js"></script>
+    <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target="#nav-example">
+    <!-- <div id="page-header" class="nav" role="navigation">
+        <div class="container">
+            <a href="http://www.mininglamp.com/" class="logo"><img alt="logo" src="http://www.mininglamp.com/static/images/logo_s.png"></a>
+            <ul class="navbar-right">
+                <li class="txt home"><a href="http://bosonnlp.com/"><span class="icon"></span>首页</a></li>
+                <li class="txt production"><a href="http://bosonnlp.com/product"><span class="icon"></span>产品</a></li>
+                <li class="txt develper hide"><a href="http://bosonnlp.com/demo#"><span class="icon"></span>开发者</a></li>
+                <li class="txt demo"><a href="http://bosonnlp.com/demo" class="selected"><span class="icon"></span>演示</a></li>
+                <li class="txt document"><a href="http://bosonnlp.com/dev/center"><span class="icon"></span>开发者</a></li>
+                <li class="txt document"><a href="http://bosonnlp.com/about"><span class="glyphicon glyphicon-user"></span>关于</a></li>
+                <li class="signin"><a href="http://bosonnlp.com/account/login">登录</a></li>
+                <li class="signup"><a href="http://bosonnlp.com/account/register">注册</a></li>
+            </ul>
+        </div>
+    </div> -->
+    <div id="content-page">
+        <!-- <div id="sub-navbar">
+            <div class="container">
+                <ul>
+                    <li class="selected"><a href="#">单文本演示</a><span></span></li>
+                    <li><a href="http://bosonnlp.com/demo2">多文本演示</a><span></span></li>
+                    <li><a href="http://bosonnlp.com/lab">玻森实验室</a><span></span></li>
+                </ul>
+            </div>
+        </div> -->
+        <div id="left-page">
+            <div class="input-chunk chunk">
+                <textarea id="txt-analysis" class="input"></textarea>
+                <div class="clearfix">
+                    <a id="btn-analysis" class="btn btn-arrow btn-radius" href="javascript:void(0)"><span class="icon"></span>提交文本</a>
+                    <a id="btn-reset" class="btn btn-arrow btn-radius" href="javascript:void(0)"><span class="icon"></span>重置文本</a>
+                </div>
+                <div class="warn-msg hide">
+                    <span class="icon"></span>
+                    <span class="txt">目前仅支持GBK字符集。分析结果已过滤暂不支持的语言或字符。</span>
+                </div>
+                <div id="insert-text"></div>
+            </div>
+        </div>
+        <div id="sideBar" class="col-xs-3 bs-sidebar" width="100%" role="complementary">
+            <div class="chunk bs-sidebar-chunk" data-spy="affix" data-offset-top="150">
+                <ul class="nav" id="nav-example">
+                    <li class="analysis active">
+                        <a class="hide" href="#overview-analysis"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-analysis">词性分析</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                    <li class="ner">
+                        <a class="hide" href="#overview-ner"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-ner">实体识别</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                    <li class="depend">
+                        <a class="hide" href="#overview-depend"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-depend">依存文法</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                    <li class="emotion">
+                        <a class="hide" href="#overview-emotion"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-emotion">情感分析</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                    <li class="summary">
+                        <a class="hide" href="#overview-summary"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-summary">新闻摘要</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                    <li class="info">
+                        <a class="hide" href="#overview-info"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-info">文本分类</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                    <li class="key">
+                        <a class="hide" href="#overview-key"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-key">关键词提取</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                    <li class="semantic">
+                        <a class="hide" href="#overview-semantic"></a>
+                        <div class="arrow"></div>
+                        <div class="title">
+                            <a href="#overview-semantic">语义联想</a>
+                        </div>
+                        <div class="line"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="demo-page">
+            <div id="demo-container" class="container">
+                <!-- <div class="breadcrumb breadcrumb-bottom">
+                    <span>您现在的位置:</span>
+                    <a href="http://www.mininglamp.com">首页</a>
+                    <span class="html-char">&gt;</span>
+                    <span>演示</span>
+                    <span class="html-char">&gt;</span>
+                    <span>单文本演示</span>
+                </div> -->
+                <div class="main-title clearfix">
+                    <span class="dot-line-gray"></span>
+                    <span class="title">分析结果</span>
+                </div>
+                <div class="demo-content">
+                    <div class="col-xs-9 main-content" role="main">
+                        <div id="overview-analysis" class="chunk">
+                            <div class="col-xs-12">
+                                <div class="title">词性分析:
+                                    <!-- <a class="docs" href="http://docs.bosonnlp.com/tag.html" target="_blank" style="display: inline;">查看文档</a><a class="docs feedback" style="display: inline;">结果不正确</a> -->
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <dl class="words">
+                                    <dd title="动词" class="v">继</dd>
+                                    <dd title="时间词" class="t">前不久</dd>
+                                    <dd title="动词" class="v">始</dd>
+                                    <dd title="介词" class="p">于</dd>
+                                    <dd title="地名" class="ns">中国</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="名词" class="n">召回</dd>
+                                    <dd title="名词" class="n">风波</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="专有名词" class="nz">宝马</dd>
+                                    <dd title="介词" class="p">因为</dd>
+                                    <dd title="名词" class="n">车辆</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="名词" class="n">发动机</dd>
+                                    <dd title="名词" class="n">螺栓</dd>
+                                    <dd title="名词" class="n">故障</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="介词" class="p">在</dd>
+                                    <dd title="名词" class="n">全球</dd>
+                                    <dd title="名词" class="n">范围</dd>
+                                    <dd title="副词" class="d">将</dd>
+                                    <dd title="动词" class="v">召回</dd>
+                                    <dd title="数词" class="m">48.9万</dd>
+                                    <dd title="量词" class="q">辆</dd>
+                                    <dd title="名词" class="n">车</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="介词" class="p">在</dd>
+                                    <dd title="动词" class="v">原有</dd>
+                                    <dd title="地名" class="ns">中国</dd>
+                                    <dd title="动词" class="v">召回</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="名词" class="n">基础</dd>
+                                    <dd title="方位词" class="f">上</dd>
+                                    <dd title="名词" class="n">数量</dd>
+                                    <dd title="副词" class="d">进一步</dd>
+                                    <dd title="动词" class="v">增加</dd>
+                                    <dd title="标点符号" class="wj">。</dd>
+                                    <dd title="动词" class="v">据悉</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="动词" class="v">召回</dd>
+                                    <dd title="名词" class="n">车辆</dd>
+                                    <dd title="副词" class="d">将</dd>
+                                    <dd title="动词" class="v">包括</dd>
+                                    <dd title="地名" class="ns">北美</dd>
+                                    <dd title="名词" class="n">市场</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="数词" class="m">15.6万</dd>
+                                    <dd title="量词" class="q">辆</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="专有名词" class="nz">宝马</dd>
+                                    <dd title="副词" class="d">曾</dd>
+                                    <dd title="介词" class="p">于</dd>
+                                    <dd title="时间词" class="t">3月</dd>
+                                    <dd title="动词" class="v">宣布</dd>
+                                    <dd title="介词" class="p">在</dd>
+                                    <dd title="名词" class="n">华</dd>
+                                    <dd title="动词" class="v">召回</dd>
+                                    <dd title="数词" class="m">232,098</dd>
+                                    <dd title="量词" class="q">辆</dd>
+                                    <dd title="名词" class="n">发动机</dd>
+                                    <dd title="名词" class="n">螺栓</dd>
+                                    <dd title="名词" class="n">故障</dd>
+                                    <dd title="名词" class="n">车辆</dd>
+                                    <dd title="标点符号" class="wj">。</dd>
+                                    <dd title="动词" class="v">涉及</dd>
+                                    <dd title="名词" class="n">车型</dd>
+                                    <dd title="动词" class="v">包括</dd>
+                                    <dd title="动词" class="v">搭载</dd>
+                                    <dd title="数词" class="m">六</dd>
+                                    <dd title="量词" class="q">缸</dd>
+                                    <dd title="名词" class="n">发动机</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="专有名词" class="nz">宝马</dd>
+                                    <dd title="数词" class="m">5</dd>
+                                    <dd title="名词" class="n">系</dd>
+                                    <dd title="标点符号" class="wn">、</dd>
+                                    <dd title="数词" class="m">7</dd>
+                                    <dd title="名词" class="n">系</dd>
+                                    <dd title="标点符号" class="wn">、</dd>
+                                    <dd title="字符串" class="nx">X3</dd>
+                                    <dd title="标点符号" class="wn">、</dd>
+                                    <dd title="字符串" class="nx">X5</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="标点符号" class="wj">。</dd>
+                                    <dd title="连词" class="c">但</dd>
+                                    <dd title="形容词" class="a">具体</dd>
+                                    <dd title="名词" class="n">型号</dd>
+                                    <dd title="字符串" class="nx">Santer</dd>
+                                    <dd title="副词" class="d">并</dd>
+                                    <dd title="副词" class="d">没有</dd>
+                                    <dd title="动词" class="v">透露</dd>
+                                    <dd title="标点符号" class="wj">。</dd>
+                                    <dd title="专有名词" class="nz">宝马</dd>
+                                    <dd title="名词" class="n">发言人</dd>
+                                    <dd title="字符串" class="nx">Bernhard</dd>
+                                    <dd title="字符串" class="nx">Santer</dd>
+                                    <dd title="动词" class="v">表示</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="时间词" class="t">目前</dd>
+                                    <dd title="副词" class="d">尚</dd>
+                                    <dd title="动词" class="v">无</dd>
+                                    <dd title="代词" class="r">该</dd>
+                                    <dd title="名词" class="n">故障</dd>
+                                    <dd title="动词" class="v">造成</dd>
+                                    <dd title="名词" class="n">事故</dd>
+                                    <dd title="连词" class="c">或</dd>
+                                    <dd title="名词" class="n">伤亡</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="名词" class="n">报告</dd>
+                                    <dd title="标点符号" class="wj">。</dd>
+                                    <dd title="连词" class="c">但</dd>
+                                    <dd title="代词" class="r">他</dd>
+                                    <dd title="副词" class="d">仍</dd>
+                                    <dd title="动词" class="v">建议</dd>
+                                    <dd title="名词" class="n">相关</dd>
+                                    <dd title="名词" class="n">车主</dd>
+                                    <dd title="形容词" class="ad">及时</dd>
+                                    <dd title="动词" class="v">检查</dd>
+                                    <dd title="名词" class="n">车辆</dd>
+                                    <dd title="名词" class="n">引擎</dd>
+                                    <dd title="标点符号" class="wj">。</dd>
+                                    <dd title="字符串" class="nx">Santer</dd>
+                                    <dd title="动词" class="v">说</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="介词" class="p">凭借</dd>
+                                    <dd title="动词" class="v">剩余</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="名词" class="n">动力</dd>
+                                    <dd title="标点符号" class="wd">，</dd>
+                                    <dd title="名词" class="n">车辆</dd>
+                                    <dd title="副词" class="d">仍旧</dd>
+                                    <dd title="动词" class="v">可以</dd>
+                                    <dd title="动词" class="v">坚持</dd>
+                                    <dd title="动词" class="v">到</dd>
+                                    <dd title="时间词" class="t">最近</dd>
+                                    <dd title="助词" class="ud">的</dd>
+                                    <dd title="名词" class="n">修理厂</dd>
+                                    <dd title="标点符号" class="wj">。</dd>
+                                </dl>
+                            </div>
+                            <div class="col-xs-3">
+                                <dl class="word-mean">
+                                    <dt>词性类别图示:</dt>
+                                    <dd class="AD">副词</dd>
+                                    <dd class="AS">体态词</dd>
+                                    <!-- <dd class="BA">把\将</dd> -->
+                                    <dd class="CC">并列连词</dd>
+                                    <dd class="CD">数字</dd>
+                                    <dd class="CS">从属连词</dd>
+                                    <!-- <dd class="DEC">的</dd>
+                                    <dd class="DEG">的</dd>
+                                    <dd class="DER">得</dd>
+                                    <dd class="DEV">地</dd>
+                                    <dd class="DT">这</dd>
+                                    <dd class="ETC">等等</dd> -->
+                                    <dd class="FW">外语</dd>
+                                    <dd class="IJ">感叹词</dd>
+                                    <dd class="JJ">形容词</dd>
+                                    <dd class="JJ">形容词</dd>
+                                    <!-- <dd class="LB">被、给</dd> -->
+                                    <dd class="LC">定位词</dd>
+                                    <dd class="M">量词</dd>
+                                    <dd class="MSP">所</dd>
+                                    <dd class="NN">普通名词</dd>
+                                    <dd class="NR">专有名词</dd>
+                                    <dd class="NT">时序词</dd>
+                                    <dd class="OD">序数词</dd>
+                                    <dd class="ON">拟声词</dd>
+                                    <dd class="P">介词</dd>
+                                    <dd class="PN">代词</dd>
+                                    <dd class="PU">标点</dd>
+                                    <!-- <dd class="SB">被、给</dd> -->
+                                    <dd class="SP">句尾小品词</dd>
+                                    <dd class="VA">表语形容词</dd>
+                                    <dd class="VC">系动词</dd>
+                                    <dd class="VE">有</dd>
+                                    <dd class="VV">其他动词</dd>
+                                    <dd class="DEC">其他</dd>
+                                </dl>
+                            </div>
+                            <div class="loading hide"></div>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                        <div id="overview-ner" class="chunk">
+                            <div class="col-xs-12">
+                                <div class="title">实体识别:<a class="docs" href="http://docs.bosonnlp.com/ner.html" target="_blank" style="display: none;">查看文档</a>
+                                    <!-- <div class="switch-wrap switch-toggle switch-candy switch-5">
+                                        <input id="rd-c1" name="viewner" value="1" type="radio">
+                                        <label for="rd-c1">更多</label>
+                                        <input id="rd-c2" name="viewner" value="2" type="radio">
+                                        <label for="rd-c2">较多</label>
+                                        <input id="rd-c3" name="viewner" value="3" type="radio" checked="">
+                                        <label for="rd-c3">平衡</label>
+                                        <input id="rd-c4" name="viewner" value="4" type="radio">
+                                        <label for="rd-c4">准确</label>
+                                        <input id="rd-c5" name="viewner" value="5" type="radio">
+                                        <label for="rd-c5" class="last-label">更准确</label>
+                                        <a></a>
+                                    </div> -->
+                                    <a class="docs feedback" style="display: none;">结果不正确</a>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <dl class="words">
+                                    <dd title="" class="">继</dd>
+                                    <dd title="" class="">前不久</dd>
+                                    <dd title="" class="">始</dd>
+                                    <dd title="" class="">于</dd>
+                                    <dd title="地点" class="location">中国</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="" class="">召回</dd>
+                                    <dd title="" class="">风波</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="公司名" class="company_name">宝马</dd>
+                                    <dd title="" class="">因为</dd>
+                                    <dd title="" class="">车辆</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="" class="">发动机</dd>
+                                    <dd title="" class="">螺栓</dd>
+                                    <dd title="" class="">故障</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="" class="">在</dd>
+                                    <dd title="" class="">全球</dd>
+                                    <dd title="" class="">范围</dd>
+                                    <dd title="" class="">将</dd>
+                                    <dd title="" class="">召回</dd>
+                                    <dd title="" class="">48.9万</dd>
+                                    <dd title="" class="">辆</dd>
+                                    <dd title="" class="">车</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="" class="">在</dd>
+                                    <dd title="" class="">原有</dd>
+                                    <dd title="地点" class="location">中国</dd>
+                                    <dd title="" class="">召回</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="" class="">基础</dd>
+                                    <dd title="" class="">上</dd>
+                                    <dd title="" class="">数量</dd>
+                                    <dd title="" class="">进一步</dd>
+                                    <dd title="" class="">增加</dd>
+                                    <dd title="" class="">。</dd>
+                                    <dd title="" class="">据悉</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="" class="">召回</dd>
+                                    <dd title="" class="">车辆</dd>
+                                    <dd title="" class="">将</dd>
+                                    <dd title="" class="">包括</dd>
+                                    <dd title="地点" class="location">北美</dd>
+                                    <dd title="" class="">市场</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="" class="">15.6万</dd>
+                                    <dd title="" class="">辆</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="公司名" class="company_name">宝马</dd>
+                                    <dd title="" class="">曾</dd>
+                                    <dd title="" class="">于</dd>
+                                    <dd title="时间" class="time">3月</dd>
+                                    <dd title="" class="">宣布</dd>
+                                    <dd title="" class="">在</dd>
+                                    <dd title="地点" class="location">华</dd>
+                                    <dd title="" class="">召回</dd>
+                                    <dd title="" class="">232,098</dd>
+                                    <dd title="" class="">辆</dd>
+                                    <dd title="" class="">发动机</dd>
+                                    <dd title="" class="">螺栓</dd>
+                                    <dd title="" class="">故障</dd>
+                                    <dd title="" class="">车辆</dd>
+                                    <dd title="" class="">。</dd>
+                                    <dd title="" class="">涉及</dd>
+                                    <dd title="" class="">车型</dd>
+                                    <dd title="" class="">包括</dd>
+                                    <dd title="" class="">搭载</dd>
+                                    <dd title="" class="">六</dd>
+                                    <dd title="" class="">缸</dd>
+                                    <dd title="" class="">发动机</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="产品名" class="product_name">宝马5系</dd>
+                                    <dd title="" class="">、</dd>
+                                    <dd title="产品名" class="product_name">7系</dd>
+                                    <dd title="" class="">、</dd>
+                                    <dd title="产品名" class="product_name">X3</dd>
+                                    <dd title="" class="">、</dd>
+                                    <dd title="产品名" class="product_name">X5</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="" class="">。</dd>
+                                    <dd title="" class="">但</dd>
+                                    <dd title="" class="">具体</dd>
+                                    <dd title="" class="">型号</dd>
+                                    <dd title="产品名" class="product_name">Santer</dd>
+                                    <dd title="" class="">并</dd>
+                                    <dd title="" class="">没有</dd>
+                                    <dd title="" class="">透露</dd>
+                                    <dd title="" class="">。</dd>
+                                    <dd title="公司名" class="company_name">宝马</dd>
+                                    <dd title="职位" class="job_title">发言人</dd>
+                                    <dd title="人名" class="person_name">Bernhard Santer</dd>
+                                    <dd title="" class="">表示</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="" class="">目前</dd>
+                                    <dd title="" class="">尚</dd>
+                                    <dd title="" class="">无</dd>
+                                    <dd title="" class="">该</dd>
+                                    <dd title="" class="">故障</dd>
+                                    <dd title="" class="">造成</dd>
+                                    <dd title="" class="">事故</dd>
+                                    <dd title="" class="">或</dd>
+                                    <dd title="" class="">伤亡</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="" class="">报告</dd>
+                                    <dd title="" class="">。</dd>
+                                    <dd title="" class="">但</dd>
+                                    <dd title="" class="">他</dd>
+                                    <dd title="" class="">仍</dd>
+                                    <dd title="" class="">建议</dd>
+                                    <dd title="" class="">相关</dd>
+                                    <dd title="" class="">车主</dd>
+                                    <dd title="" class="">及时</dd>
+                                    <dd title="" class="">检查</dd>
+                                    <dd title="" class="">车辆</dd>
+                                    <dd title="" class="">引擎</dd>
+                                    <dd title="" class="">。</dd>
+                                    <dd title="人名" class="person_name">Santer</dd>
+                                    <dd title="" class="">说</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="" class="">凭借</dd>
+                                    <dd title="" class="">剩余</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="" class="">动力</dd>
+                                    <dd title="" class="">，</dd>
+                                    <dd title="" class="">车辆</dd>
+                                    <dd title="" class="">仍旧</dd>
+                                    <dd title="" class="">可以</dd>
+                                    <dd title="" class="">坚持</dd>
+                                    <dd title="" class="">到</dd>
+                                    <dd title="" class="">最近</dd>
+                                    <dd title="" class="">的</dd>
+                                    <dd title="" class="">修理厂</dd>
+                                    <dd title="" class="">。</dd>
+                                </dl>
+                            </div>
+                            <div class="col-xs-3">
+                                <dl class="word-mean">
+                                    <dt>实体类别图示:</dt>
+                                    <dd class="PERSON">人名</dd>
+                                    <dd class="ORGANIZATION">机构名</dd>
+                                    <dd class="LOCATION">地名</dd>
+                                    <dd class="DATE">日期</dd>
+                                    <dd class="TIME">时间</dd>
+                                    <dd class="PERCENT">百分比</dd>
+                                    <dd class="MONEY">货币</dd>
+                                    <dd class="GPE">地缘政治实体</dd>
+                                    <dd class="MISC">其它</dd>
+                                </dl>
+                            </div>
+                            <div class="loading hide"></div>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                        <div id="overview-depend" class="chunk">
+                            <div class="title">依存文法:<a class="docs" href="http://docs.bosonnlp.com/depparser.html" target="_blank" style="display: none;">查看文档</a><a class="docs feedback" style="display: none;">结果不正确</a></div>
+                            <div class="depend-tree" style="height: 356px; overflow: auto; width: 900px;padding-top: 32px;">
+                                <svg viewBox="0.5,0.5,2461,334" width="2461" height="334">
+                                    <defs>
+                                        <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="5" orient="auto" style="fill: #999">
+                                            <path d="M 0 0 L 7 5 L 0 10 z"></path>
+                                        </marker>
+                                    </defs>
+                                    <g>
+                                        <g id="node-0" class="node" height="37" width="35.25" data-x="20" transform="translate(20,292)">
+                                            <rect class="label-bg" height="37" width="35.25" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="35.25" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="10.125">继</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">0 | P</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-1" class="node" height="37" width="49" data-x="69" transform="translate(69,292)">
+                                            <rect class="label-bg" height="37" width="49" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="49" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="3">前不久</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3.9453125" fill="#999">1 | AD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-2" class="node" height="37" width="45.71875" data-x="132" transform="translate(132,292)">
+                                            <rect class="label-bg" height="37" width="45.71875" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="45.71875" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="7.859375">始于</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">2 | VV</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-3" class="node" height="37" width="47.640625" data-x="191" transform="translate(191,292)">
+                                            <rect class="label-bg" height="37" width="47.640625" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="47.640625" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="9.8203125">中国</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">3 | NR</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-4" class="node" height="37" width="56.03125" data-x="252" transform="translate(252,292)">
+                                            <rect class="label-bg" height="37" width="56.03125" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="56.03125" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="21.015625">的</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">4 | DEG</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-5" class="node" height="37" width="49.015625" data-x="322" transform="translate(322,292)">
+                                            <rect class="label-bg" height="37" width="49.015625" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="49.015625" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="10.0078125">召回</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">5 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-6" class="node" height="37" width="49.015625" data-x="385" transform="translate(385,292)">
+                                            <rect class="label-bg" height="37" width="49.015625" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="49.015625" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="9.5078125">风波</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">6 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-7" class="node" height="37" width="45.265625" data-x="448" transform="translate(448,292)">
+                                            <rect class="label-bg" height="37" width="45.265625" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="45.265625" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="15.6328125">，</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">7 | PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-8" class="node" height="37" width="47.640625" data-x="507" transform="translate(507,292)">
+                                            <rect class="label-bg" height="37" width="47.640625" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="47.640625" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="9.8203125">宝马</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">8 | NR</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-9" class="node" height="37" width="35.25" data-x="568" transform="translate(568,292)">
+                                            <rect class="label-bg" height="37" width="35.25" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="35.25" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="3.625">因为</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">9 | P</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-10" class="node" height="37" width="57.234375" data-x="617" transform="translate(617,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="14.1171875">车辆</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">10 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-11" class="node" height="37" width="63.234375" data-x="688" transform="translate(688,292)">
+                                            <rect class="label-bg" height="37" width="63.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="63.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="24.6171875">的</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">11 | DEG</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-12" class="node" height="37" width="57.234375" data-x="765" transform="translate(765,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="6.6171875">发动机</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">12 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-13" class="node" height="37" width="57.234375" data-x="836" transform="translate(836,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="13.6171875">螺栓</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">13 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-14" class="node" height="37" width="57.234375" data-x="907" transform="translate(907,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="13.6171875">故障</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">14 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-15" class="node" height="37" width="53.484375" data-x="978" transform="translate(978,292)">
+                                            <rect class="label-bg" height="37" width="53.484375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="53.484375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="19.7421875">，</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">15 | PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-16" class="node" height="37" width="43.46875" data-x="1045" transform="translate(1045,292)">
+                                            <rect class="label-bg" height="37" width="43.46875" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="43.46875" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="14.234375">在</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">16 | P</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-17" class="node" height="37" width="57.234375" data-x="1102" transform="translate(1102,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="13.6171875">全球</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">17 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-18" class="node" height="37" width="57.234375" data-x="1173" transform="translate(1173,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="14.6171875">范围</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">18 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-19" class="node" height="37" width="55.3125" data-x="1244" transform="translate(1244,292)">
+                                            <rect class="label-bg" height="37" width="55.3125" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="55.3125" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="19.65625">将</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">19 | AD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-20" class="node" height="37" width="53.9375" data-x="1313" transform="translate(1313,292)">
+                                            <rect class="label-bg" height="37" width="53.9375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="53.9375" style="fill: #eee;"></rect>
+                                                <text text-anchor="left" style="font-weight: bold;">
+                                                    <tspan dy="5" dx="12.96875">召回</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">20 | VV</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-21" class="node" height="37" width="54.828125" data-x="1380" transform="translate(1380,292)">
+                                            <rect class="label-bg" height="37" width="54.828125" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="54.828125" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="5.9140625">48.9万</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">21 | CD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-22" class="node" height="37" width="48.140625" data-x="1448" transform="translate(1448,292)">
+                                            <rect class="label-bg" height="37" width="48.140625" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="48.140625" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="16.0703125">辆</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">22 | M</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-23" class="node" height="37" width="57.234375" data-x="1510" transform="translate(1510,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="21.6171875">车</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">23 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-24" class="node" height="37" width="53.484375" data-x="1581" transform="translate(1581,292)">
+                                            <rect class="label-bg" height="37" width="53.484375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="53.484375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="19.7421875">，</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">24 | PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-25" class="node" height="37" width="43.46875" data-x="1648" transform="translate(1648,292)">
+                                            <rect class="label-bg" height="37" width="43.46875" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="43.46875" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="14.234375">在</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">25 | P</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-26" class="node" height="37" width="55.3125" data-x="1705" transform="translate(1705,292)">
+                                            <rect class="label-bg" height="37" width="55.3125" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="55.3125" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="19.65625">原</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">26 | AD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-27" class="node" height="37" width="51.9375" data-x="1774" transform="translate(1774,292)">
+                                            <rect class="label-bg" height="37" width="51.9375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="51.9375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="18.46875">有</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">27 | VE</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-28" class="node" height="37" width="55.84375" data-x="1839" transform="translate(1839,292)">
+                                            <rect class="label-bg" height="37" width="55.84375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="55.84375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="13.921875">中国</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">28 | NR</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-29" class="node" height="37" width="53.9375" data-x="1908" transform="translate(1908,292)">
+                                            <rect class="label-bg" height="37" width="53.9375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="53.9375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="12.46875">召回</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">29 | VV</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-30" class="node" height="37" width="62.1875" data-x="1975" transform="translate(1975,292)">
+                                            <rect class="label-bg" height="37" width="62.1875" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="62.1875" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="24.09375">的</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">30 | DEC</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-31" class="node" height="37" width="57.234375" data-x="2051" transform="translate(2051,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="14.1171875">基础</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">31 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-32" class="node" height="37" width="51.015625" data-x="2122" transform="translate(2122,292)">
+                                            <rect class="label-bg" height="37" width="51.015625" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="51.015625" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="18.5078125">上</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">32 | LC</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-33" class="node" height="37" width="57.234375" data-x="2187" transform="translate(2187,292)">
+                                            <rect class="label-bg" height="37" width="57.234375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="57.234375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="13.6171875">数量</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">33 | NN</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-34" class="node" height="37" width="55.3125" data-x="2258" transform="translate(2258,292)">
+                                            <rect class="label-bg" height="37" width="55.3125" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="55.3125" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="6.15625">进一步</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">34 | AD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-35" class="node" height="37" width="53.9375" data-x="2327" transform="translate(2327,292)">
+                                            <rect class="label-bg" height="37" width="53.9375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="53.9375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="12.46875">增加</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">35 | VV</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="node-36" class="node" height="37" width="53.484375" data-x="2394" transform="translate(2394,292)">
+                                            <rect class="label-bg" height="37" width="53.484375" style="stroke-width: 3; opacity: 0.5; stroke: #333;"></rect>
+                                            <g transform="translate(0,12)">
+                                                <rect x="0" y="-12" height="37" width="53.484375" style="fill: #fff;"></rect>
+                                                <text text-anchor="left" style="">
+                                                    <tspan dy="5" dx="19.7421875">。</tspan>
+                                                </text>
+                                                <text>
+                                                    <tspan dy="20" dx="3" fill="#999">36 | PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <g>
+                                        <g id="edge-0-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M29.75,292L29.75,46L1346.6979166666667,46L1346.6979166666667,292"></path>
+                                            <g transform="translate(664.9505208333334,45.5)">
+                                                <rect fill="#f6f6f6" y="4" width="46.546875" height="0"></rect>
+                                                <text width="46.546875" height="0">
+                                                    <tspan fill="#999">VMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-1-2">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M90.75,292L90.75,242L142.1796875,242L142.1796875,292"></path>
+                                            <g transform="translate(93.19140625,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="46.546875" height="0"></rect>
+                                                <text width="46.546875" height="0">
+                                                    <tspan fill="#999">VMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-2-0">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M152.109375,292L152.109375,214L39.5,214L39.5,292"></path>
+                                            <g transform="translate(78.65625,213.5)">
+                                                <rect fill="#f6f6f6" y="4" width="34.296875" height="0"></rect>
+                                                <text width="34.296875" height="0">
+                                                    <tspan fill="#999">POBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-3-4">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M212.7890625,292L212.7890625,242L270.2864583333333,242L270.2864583333333,292"></path>
+                                            <g transform="translate(227.15494791666666,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="28.765625" height="0"></rect>
+                                                <text width="28.765625" height="0">
+                                                    <tspan fill="#999">DEG</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-4-6">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M286.9635416666667,292L286.9635416666667,214L408.1640625,214L408.1640625,292"></path>
+                                            <g transform="translate(323.82942708333337,213.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-5-6">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M345.1484375,292L345.1484375,242L397.41015625,242L397.41015625,292"></path>
+                                            <g transform="translate(347.544921875,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-6-2">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M418.91796875,292L418.91796875,186L162.0390625,186L162.0390625,292"></path>
+                                            <g transform="translate(277.611328125,185.5)">
+                                                <rect fill="#f6f6f6" y="4" width="25.734375" height="0"></rect>
+                                                <text width="25.734375" height="0">
+                                                    <tspan fill="#999">OBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-7-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M469.3046875,292L469.3046875,74L1342.703125,74L1342.703125,292"></path>
+                                            <g transform="translate(896.49609375,73.5)">
+                                                <rect fill="#f6f6f6" y="4" width="19.015625" height="0"></rect>
+                                                <text width="19.015625" height="0">
+                                                    <tspan fill="#999">PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-8-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M529.7578125,292L529.7578125,102L1338.7083333333333,102L1338.7083333333333,292"></path>
+                                            <g transform="translate(923.0299479166666,101.5)">
+                                                <rect fill="#f6f6f6" y="4" width="22.40625" height="0"></rect>
+                                                <text width="22.40625" height="0">
+                                                    <tspan fill="#999">SBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-9-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M580.328125,292L580.328125,130L1334.7135416666667,130L1334.7135416666667,292"></path>
+                                            <g transform="translate(934.2473958333334,129.5)">
+                                                <rect fill="#f6f6f6" y="4" width="46.546875" height="0"></rect>
+                                                <text width="46.546875" height="0">
+                                                    <tspan fill="#999">VMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-10-11">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M645.4453125,292L645.4453125,242L710.140625,242L710.140625,292"></path>
+                                            <g transform="translate(663.41015625,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="28.765625" height="0"></rect>
+                                                <text width="28.765625" height="0">
+                                                    <tspan fill="#999">DEG</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-11-14">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M729.21875,292L729.21875,186L941.50625,186L941.50625,292"></path>
+                                            <g transform="translate(811.628125,185.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-12-14">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M793.9140625,292L793.9140625,214L931.259375,214L931.259375,292"></path>
+                                            <g transform="translate(838.85234375,213.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-13-14">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M865.1484375,292L865.1484375,242L921.0125,242L921.0125,292"></path>
+                                            <g transform="translate(869.34609375,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-14-9">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M951.753125,292L951.753125,158L590.078125,158L590.078125,292"></path>
+                                            <g transform="translate(753.7671875,157.5)">
+                                                <rect fill="#f6f6f6" y="4" width="34.296875" height="0"></rect>
+                                                <text width="34.296875" height="0">
+                                                    <tspan fill="#999">POBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-15-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1005.7421875,292L1005.7421875,158L1330.71875,158L1330.71875,292"></path>
+                                            <g transform="translate(1158.72265625,157.5)">
+                                                <rect fill="#f6f6f6" y="4" width="19.015625" height="0"></rect>
+                                                <text width="19.015625" height="0">
+                                                    <tspan fill="#999">PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-16-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1061.9739583333333,292L1061.9739583333333,186L1326.7239583333333,186L1326.7239583333333,292"></path>
+                                            <g transform="translate(1180.3723958333333,185.5)">
+                                                <rect fill="#f6f6f6" y="4" width="27.953125" height="0"></rect>
+                                                <text width="27.953125" height="0">
+                                                    <tspan fill="#999">LOC</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-17-18">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1132.5703125,292L1132.5703125,242L1195.265625,242L1195.265625,292"></path>
+                                            <g transform="translate(1140.18359375,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-18-16">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1212.34375,292L1212.34375,214L1074.4635416666667,214L1074.4635416666667,292"></path>
+                                            <g transform="translate(1126.2552083333335,213.5)">
+                                                <rect fill="#f6f6f6" y="4" width="34.296875" height="0"></rect>
+                                                <text width="34.296875" height="0">
+                                                    <tspan fill="#999">POBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-19-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1274.078125,292L1274.078125,242L1322.7291666666667,242L1322.7291666666667,292"></path>
+                                            <g transform="translate(1275.1302083333335,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="46.546875" height="0"></rect>
+                                                <text width="46.546875" height="0">
+                                                    <tspan fill="#999">VMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-20-22">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1411.0859375,292L1411.0859375,242L1469.546875,242L1469.546875,292"></path>
+                                            <g transform="translate(1433.48046875,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="13.671875" height="0"></rect>
+                                                <text width="13.671875" height="0">
+                                                    <tspan fill="#999">M</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-21-23">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1483.59375,292L1483.59375,242L1534.71875,242L1534.71875,292"></path>
+                                            <g transform="translate(1485.421875,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-22-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1551.796875,292L1551.796875,214L1362.6770833333333,214L1362.6770833333333,292"></path>
+                                            <g transform="translate(1444.3697916666665,213.5)">
+                                                <rect fill="#f6f6f6" y="4" width="25.734375" height="0"></rect>
+                                                <text width="25.734375" height="0">
+                                                    <tspan fill="#999">OBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-23-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1612.6171875,292L1612.6171875,186L1358.6822916666667,186L1358.6822916666667,292"></path>
+                                            <g transform="translate(1476.1419270833335,185.5)">
+                                                <rect fill="#f6f6f6" y="4" width="19.015625" height="0"></rect>
+                                                <text width="19.015625" height="0">
+                                                    <tspan fill="#999">PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-24-35">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1668.8489583333333,292L1668.8489583333333,130L2368.60625,130L2368.60625,292"></path>
+                                            <g transform="translate(2004.7510416666664,129.5)">
+                                                <rect fill="#f6f6f6" y="4" width="27.953125" height="0"></rect>
+                                                <text width="27.953125" height="0">
+                                                    <tspan fill="#999">LOC</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-25-27">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1738.484375,292L1738.484375,242L1794.625,242L1794.625,292"></path>
+                                            <g transform="translate(1743.28125,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="46.546875" height="0"></rect>
+                                                <text width="46.546875" height="0">
+                                                    <tspan fill="#999">VMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-26-30">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1806.109375,292L1806.109375,186L2005.5885416666667,186L2005.5885416666667,292"></path>
+                                            <g transform="translate(1891.9895833333335,185.5)">
+                                                <rect fill="#f6f6f6" y="4" width="27.71875" height="0"></rect>
+                                                <text width="27.71875" height="0">
+                                                    <tspan fill="#999">DEC</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-27-29">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1874,292L1874,242L1934.9010416666667,242L1934.9010416666667,292"></path>
+                                            <g transform="translate(1893.2473958333335,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="22.40625" height="0"></rect>
+                                                <text width="22.40625" height="0">
+                                                    <tspan fill="#999">SBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-28-27">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M1950.8802083333333,292L1950.8802083333333,214L1817.59375,214L1817.59375,292"></path>
+                                            <g transform="translate(1871.3697916666665,213.5)">
+                                                <rect fill="#f6f6f6" y="4" width="25.734375" height="0"></rect>
+                                                <text width="25.734375" height="0">
+                                                    <tspan fill="#999">OBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-29-31">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M2024.3177083333333,292L2024.3177083333333,242L2080.125,242L2080.125,292"></path>
+                                            <g transform="translate(2028.4869791666665,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="47.46875" height="0"></rect>
+                                                <text width="47.46875" height="0">
+                                                    <tspan fill="#999">NMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-30-32">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M2097.203125,292L2097.203125,242L2149.2864583333335,242L2149.2864583333335,292"></path>
+                                            <g transform="translate(2114.971354166667,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="16.546875" height="0"></rect>
+                                                <text width="16.546875" height="0">
+                                                    <tspan fill="#999">LC</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-31-25">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M2164.2916666666665,292L2164.2916666666665,158L1681.3385416666667,158L1681.3385416666667,292"></path>
+                                            <g transform="translate(1905.6666666666665,157.5)">
+                                                <rect fill="#f6f6f6" y="4" width="34.296875" height="0"></rect>
+                                                <text width="34.296875" height="0">
+                                                    <tspan fill="#999">POBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-32-35">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M2224.9140625,292L2224.9140625,214L2359.01875,214L2359.01875,292"></path>
+                                            <g transform="translate(2280.76328125,213.5)">
+                                                <rect fill="#f6f6f6" y="4" width="22.40625" height="0"></rect>
+                                                <text width="22.40625" height="0">
+                                                    <tspan fill="#999">SBJ</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-33-35">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M2295.1875,292L2295.1875,242L2349.43125,242L2349.43125,292"></path>
+                                            <g transform="translate(2299.0359375,241.5)">
+                                                <rect fill="#f6f6f6" y="4" width="46.546875" height="0"></rect>
+                                                <text width="46.546875" height="0">
+                                                    <tspan fill="#999">VMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-34-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M2378.19375,292L2378.19375,102L1354.6875,102L1354.6875,292"></path>
+                                            <g transform="translate(1843.1671875,101.5)">
+                                                <rect fill="#f6f6f6" y="4" width="46.546875" height="0"></rect>
+                                                <text width="46.546875" height="0">
+                                                    <tspan fill="#999">VMOD</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                        <g id="edge-35-20">
+                                            <path marker-end="url(#arrowhead)" stroke="#999" stroke-width="2" fill="none" d="M2431.5234375,292L2431.5234375,74L1350.6927083333333,74L1350.6927083333333,292"></path>
+                                            <g transform="translate(1881.6002604166665,73.5)">
+                                                <rect fill="#f6f6f6" y="4" width="19.015625" height="0"></rect>
+                                                <text width="19.015625" height="0">
+                                                    <tspan fill="#999">PU</tspan>
+                                                </text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="tree-shadow-wrap hide" style="width: 900px; height: 339px;">
+                                <div class="tree-shadow"></div>
+                                <input type="button" class="btn" value="全屏查看">
+                            </div>
+                            <span class="loading hide"></span>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                        <div id="overview-emotion" class="chunk">
+                            <div class="title">情感分析:<a class="docs" href="http://docs.bosonnlp.com/sentiment.html" target="_blank" style="display: none;">查看文档</a>
+                                <!-- <div class="switch-wrap switch-toggle switch-candy switch-6">
+                                    <input id="rd-c7" name="viewemotion" value="" type="radio" checked="">
+                                    <label for="rd-c7">通用</label>
+                                    <input id="rd-c8" name="viewemotion" value="auto" type="radio">
+                                    <label for="rd-c8">汽车</label>
+                                    <input id="rd-c9" name="viewemotion" value="kitchen" type="radio">
+                                    <label for="rd-c9">厨具</label>
+                                    <input id="rd-c10" name="viewemotion" value="food" type="radio">
+                                    <label for="rd-c10">餐饮</label>
+                                    <input id="rd-c11" name="viewemotion" value="news" type="radio">
+                                    <label for="rd-c11">新闻</label>
+                                    <input id="rd-c12" name="viewemotion" value="weibo" type="radio">
+                                    <label for="rd-c12" class="last-label">微博</label>
+                                    <a></a>
+                                </div> -->
+                                <a class="docs feedback" style="display: none;">结果不正确</a>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-xs-6">
+                                    <div class="emotion-chart" data-highcharts-chart="0">
+                                        <div class="highcharts-container" id="highcharts-0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <dl class="emotion-tips">
+                                        <dt>
+                                            <ul>
+                                                <li class="positive"><span class="icon"></span>正面</li>
+                                                <li class="passive"><span class="icon"></span>负面</li>
+                                                <li class="neutral"><span class="icon"></span>中性</li>
+                                            </ul>
+                                        </dt>
+                                        <dd>负面指数:</dd>
+                                        <dd>0~0.5之间判断为负面，</dd>
+                                        <dd>0.5~1之间判断为正面。</dd>
+                                        <dd>可调用高级接口获取负面指数，自定义判断标准。</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <span class="loading hide"></span>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                        <div id="overview-summary" class="chunk">
+                            <div class="title">新闻摘要:<a class="docs" href="http://docs.bosonnlp.com/summary.html" target="_blank" style="display: none;">查看文档</a>
+                                <!-- <div class="switch-wrap switch-toggle switch-candy switch-4">
+                                        <input id="rd-c14" name="viewsummary" value="0.5" type="radio" checked="">
+                                        <label for="rd-c14">50%</label>
+                                        <input id="rd-c15" name="viewsummary" value="0.4" type="radio">
+                                        <label for="rd-c15">40%</label>
+                                        <input id="rd-c16" name="viewsummary" value="0.3" type="radio">
+                                        <label for="rd-c16">30%</label>
+                                        <input id="rd-c17" name="viewsummary" value="0.2" type="radio">
+                                        <label for="rd-c17" class="last-label">20%</label>
+                                        <a></a>
+                                    </div> -->
+                                <a class="docs feedback" style="display: none;">结果不正确</a>
+                            </div>
+                            <div class="col-xs-12">
+                                <p class="result">
+                                    继前不久始于中国的召回风波，宝马因为车辆的发动机螺栓故障，在全球范围将召回48.9万辆车，在原有中国召回的基础上数量进一步增加。 据悉，召回车辆将包括北美市场的15.6万辆，宝马曾于3月宣布在华召回232,098辆发动机螺栓故障车辆。 Santer说，凭借剩余的动力，车辆仍旧可以坚持到最近的修理厂。
+                                </p>
+                            </div>
+                            <div class="loading hide"></div>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                        <div id="overview-info" class="chunk">
+                            <div class="title">文本分类:<a class="docs" href="http://docs.bosonnlp.com/classify.html" target="_blank" style="display: none;">查看文档</a><a class="docs feedback" style="display: none;">结果不正确</a></div>
+                            <div class="info-parent-containers">
+                                <li>体育</li>
+                                <li>教育</li>
+                                <li>财经</li>
+                                <li>社会</li>
+                                <li>娱乐</li>
+                                <li>军事</li>
+                                <li>国内</li>
+                                <li>科技</li>
+                                <li>互联网</li>
+                                <li>房产</li>
+                                <li>国际</li>
+                                <li>女人</li>
+                                <li class="selected">汽车</li>
+                                <li>游戏</li>
+                                <li class="move-scale" style="left: 759px"></li>
+                            </div>
+                            <div class="info-child-containers"></div>
+                            <div class="title title-other hide">关键词标签:<a class="docs feedback" style="display: none;">结果不正确</a></div>
+                            <ul class="keywords-tags hide">
+                            </ul>
+                            <span class="loading hide"></span>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                        <div id="overview-key" class="chunk">
+                            <div class="title">关键词提取:<a class="docs" href="http://docs.bosonnlp.com/keywords.html" target="_blank" style="display: none;">查看文档</a><a class="docs feedback" style="display: none;">结果不正确</a></div>
+                            <div class="result" style="padding-top:16px;">
+                                <div class="col-small-0">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td>名称</td>
+                                                <td>权重</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>召回</td>
+                                                <td>50</td>
+                                            </tr>
+                                            <tr>
+                                                <td>santer</td>
+                                                <td>44</td>
+                                            </tr>
+                                            <tr>
+                                                <td>宝马</td>
+                                                <td>33</td>
+                                            </tr>
+                                            <tr>
+                                                <td>车辆</td>
+                                                <td>32</td>
+                                            </tr>
+                                            <tr>
+                                                <td>螺栓</td>
+                                                <td>27</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-small-1">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td>名称</td>
+                                                <td>权重</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>故障</td>
+                                                <td>25</td>
+                                            </tr>
+                                            <tr>
+                                                <td>发动机</td>
+                                                <td>17</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bernhard</td>
+                                                <td>15</td>
+                                            </tr>
+                                            <tr>
+                                                <td>修理厂</td>
+                                                <td>13</td>
+                                            </tr>
+                                            <tr>
+                                                <td>伤亡</td>
+                                                <td>9</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-small-2">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td>名称</td>
+                                                <td>权重</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>风波</td>
+                                                <td>8</td>
+                                            </tr>
+                                            <tr>
+                                                <td>剩余</td>
+                                                <td>8</td>
+                                            </tr>
+                                            <tr>
+                                                <td>北美</td>
+                                                <td>8</td>
+                                            </tr>
+                                            <tr>
+                                                <td>车主</td>
+                                                <td>7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>事故</td>
+                                                <td>7</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <span class="loading hide"></span>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                        <div id="overview-semantic" class="chunk">
+                            <div class="title">语义联想:<a class="docs" href="http://docs.bosonnlp.com/suggest.html" target="_blank">查看文档</a><a class="docs feedback">结果不正确</a></div>
+                            <div class="result">
+                                <div class="col-0">
+                                    <div class="suggest-word">关键词：召回</div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td>名称</td>
+                                                <td>相关性</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>召回</td>
+                                                <td>1.0000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>答谢</td>
+                                                <td>0.3175</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-1">
+                                    <div class="suggest-word">关键词：santer</div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td>名称</td>
+                                                <td>相关性</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <span class="loading hide"></span>
+                            <div class="warn-tips hide"><span class="icon"></span><span class="txt"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="btn-back-top">
+                <span class="icon"></span>
+            </div>
+        </div>
+    </div>
+    <!-- <div id="page-footer">
+        <div class="container">
+            <div class="column">
+                <a href="http://www.mininglamp.com/" class="logo"><img alt="logo" src="http://www.mininglamp.com/static/images/logo_s.png"></a>
+            </div>
+            <ul class="navlist">
+                <li>
+                    <h3>明略制造</h3>
+                    <p><a href="http://www.mininglamp.com/products">产品</a></p>
+                    <p><a href="http://www.mininglamp.com/aboutus#guanli">服务</a></p>
+                    <p><a href="http://www.mininglamp.com/cases">案例</a></p>
+                </li>
+                <li>
+                    <h3>明略洞察行业</h3>
+                    <p><a href="http://www.mininglamp.com/solutions/publicsecurity">公安</a></p>
+                    <p><a href="http://www.mininglamp.com/solutions/finance">金融</a></p>
+                    <p><a href="http://www.mininglamp.com/solutions/industry">工业</a></p>
+                    <p><a href="http://www.mininglamp.com/solutions/government_enterprise">政企</a></p>
+                    <p><a href="http://www.mininglamp.com/solutions/tax">税务</a></p>
+                    <p><a href="http://www.mininglamp.com/solutions/realestate">地产</a></p>
+                    <p><a href="http://www.mininglamp.com/solutions/marketing">营销</a></p>
+                </li>
+                <li>
+                    <h3>新闻与快讯</h3>
+                    <p><a href="http://www.mininglamp.com/aboutus/news">明略新闻</a></p>
+                    <p><a href="http://www.mininglamp.com/blog">明略博客</a></p>
+                </li>
+                <li>
+                    <h3>关于明略</h3>
+                    <p><a href="http://www.mininglamp.com/aboutus">公司简介</a></p>
+                    <p><a href="http://www.mininglamp.com/resource/book">资源中心</a></p>
+                    <p><a href="http://www.mininglamp.com/contact/joinus">加入明略</a></p>
+                    <p><a href="http://www.mininglamp.com/contact">在线留言</a></p>
+                </li>
+            </ul>
+            <dl class="column">
+                <dt>产品</dt>
+                <dd><a href="http://bosonnlp.com/product/intro"><span class="icon"></span>NLP是什么？</a></dd>
+                <dd><a href="http://bosonnlp.com/product"><span class="icon"></span>产品</a></dd>
+                <dd><a href="http://bosonnlp.com/product/solution"><span class="icon"></span>口碑分析</a></dd>
+            </dl>
+            <dl class="column">
+                <dt>演示</dt>
+                <dd><a href="http://bosonnlp.com/demo"><span class="icon"></span>单文本演示</a></dd>
+                <dd><a href="http://bosonnlp.com/demo2"><span class="icon"></span>多文本演示</a></dd>
+                <dd><a href="http://bosonnlp.com/lab"><span class="icon"></span>玻森实验室</a></dd>
+            </dl>
+            <dl class="column">
+                <dt>开发者</dt>
+                <dd><a href="http://bosonnlp.com/dev/center"><span class="icon"></span>开发者中心</a></dd>
+                <dd><a href="http://docs.bosonnlp.com/" target="_blank"><span class="icon"></span>API文档</a></dd>
+                <dd><a href="http://bosonnlp-py.readthedocs.org/#bosonnlp" target="_blank"><span class="icon"></span>SDK文档</a></dd>
+                <dd><a href="http://bosonnlp.com/dev/resource"><span class="icon"></span>数据下载</a></dd>
+                <dd><a href="http://bosonnlp.com/dev/logo"><span class="icon"></span>LOGO标识</a></dd>
+            </dl>
+            <dl class="column">
+                <dt>关于</dt>
+                <dd><a href="http://bosonnlp.com/about"><span class="icon"></span>团队</a></dd>
+                <dd><a href="http://www.bosondata.com.cn/team" target="_blank"><span class="icon"></span>管理团队</a></dd>
+                <dd><a href="http://www.bosondata.com.cn/jobs" target="_blank"><span class="icon"></span>加入我们</a></dd>
+                <dd><a href="http://bosonnlp.com/about#contact"><span class="icon"></span>联系我们</a></dd>
+            </dl>
+            <dl class="weixin">
+                <dt>微信扫一扫</dt>
+                <dd><img src="./mininglampNLP/getqrcode.jpg" alt="微信二维码"></dd>
+            </dl>
+            <div class="line"></div>
+            <div class="copyright">
+                <div class="info">
+                    <a href="http://www.mininglamp.com/aboutus" target="_blank">关于我们</a>
+                    <span>/</span>
+                    <a href="http://www.mininglamp.com/contact" target="_blank">联系信息</a>
+                    <span>/</span>
+                    <a href="http://www.mininglamp.com/contact/joinus" target="_blank">招聘英才</a>
+                    <span>/</span>
+                    <a target="_blank" href="http://weibo.com/bosondata" class="weibo icon"></a>
+                </div>
+                <div>
+                    <span style="margin-right: 10px">京ICP备15016868号</span>
+                    <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010502002075" style="text-decoration: none">
+                        <img src="./mininglampNLP/record-icon.png" height="18" width="18">
+                        <span>京公网安备11011402000192</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <input type="hidden" id="hidden-referer" value="">
+    <input type="hidden" value=" 0 " id="hidden_auth">
+    <script type="text/javascript" src="./mininglampNLP/require.min.js"></script>
+    <script type="text/javascript" src="./mininglampNLP/require.config.js"></script>
+    <script>
+    require(['demo'], function() {})
+    </script>
+    <script>
+    //require(['npl'], function() {})
+    </script>
+    <!-- <div class="redirect-register" style="display: block; bottom: 0px;">
+        <div class="container"><a class="btn btn-arrow btn-radius right" href="http://bosonnlp.com/account/register?source=demo-fixed"><span class="icon"></span>立即注册</a><span>现在加入BosonNLP，可获得分词与词性标注引擎<strong>不限量</strong>调用额度！</span></div>
+    </div> -->
+</body>
+
+</html>
