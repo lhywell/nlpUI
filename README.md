@@ -15,3 +15,6 @@
 
 # Resources
 https://bosonnlp.com/demo
+
+# 预览
+https://agitated-dubinsky-67c1f7.netlify.com/demo.html
